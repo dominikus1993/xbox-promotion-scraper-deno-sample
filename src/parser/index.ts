@@ -3,9 +3,14 @@ import { Game } from "../types/game.ts";
 
 const url = "https://www.microsoft.com/pl-pl/store/deals/games/xbox"
 
-function parseTitleAndUrl($: cheerio.CheerioAPI, element: cheerio.Element)  {
-    const data = $(element).find("a").contents().first()
-    console.log({ url: data.data(), text: data.text()})
+function parseTitleAndUrl($: cheerio.CheerioAPI, element: cheerio.Element) : {url: string, title: string } {
+    const data = $(element).find("a").first()
+    return { url: data[0].attribs.href, title: data.text()}
+}
+
+function parsePrice($: cheerio.CheerioAPI, element: cheerio.Element) {
+    const data = $(element).find("p[aria-hidden='true']")
+    console.log(data.text())
 }
 
 export async function parsePage() {
@@ -15,8 +20,10 @@ export async function parsePage() {
   const $ = cheerio.load(html)
   const cardPlacement = $("div.card").find("div.card-body")
   const price = cardPlacement.find("p[aria-hidden='true']")
-  const title = cardPlacement.find("a")
   for (const element of cardPlacement) {
-    parseTitleAndUrl($, element)
+    let res = parseTitleAndUrl($, element)
+    parsePrice($, element)
+
+    console.log(res)
   }
 }
