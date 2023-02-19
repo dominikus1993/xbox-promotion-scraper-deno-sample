@@ -1,4 +1,5 @@
 import * as cheerio from "https://esm.sh/cheerio@1.0.0-rc.12";
+import { concatMap, filter, from, map, mergeMap, range, toArray } from "npm:rxjs@7.6.0";
 import { Game, GamePassGame, RegularGame, XboxGame } from "../types/game.ts";
 
 const url = "https://www.microsoft.com/pl-pl/store/deals/games/xbox";
@@ -44,18 +45,18 @@ async function parsePage(page: number): Promise<XboxGame[]> {
 
   const $ = cheerio.load(html);
   const cardPlacement = $("div.card").find("div.card-body");
-  const result: XboxGame[] = []
+  const result: XboxGame[] = [];
   for (const element of cardPlacement) {
     const res: Game = parseTitleAndUrl($, element);
     const prices = parsePrice($, element);
     if (prices) {
       const game: RegularGame = { ...res, ...prices, kind: "Regular" };
-      result.push(game)
+      result.push(game);
       continue;
     }
-    result.push({...res, kind: "GamePass"})
+    result.push({ ...res, kind: "GamePass" });
   }
-  return result
+  return result;
 }
 
 export async function parsePages(pages: number) {
@@ -64,8 +65,13 @@ export async function parsePages(pages: number) {
     tasks.push(parsePage(index));
   }
 
-  const games = await Promise.all(tasks);
-  const res = games.flat().filter(x => x.kind !== "GamePass")
-
-  console.table(res)
+  // const games = await Promise.all(tasks);
+  // const res = games.flat().filter((x) => x.kind !== "GamePass");
+  await from(tasks)
+    .pipe(
+      mergeMap((x) => x, 5),
+      mergeMap(x => x.flat()),
+      filter(x => x.kind !== "GamePass"),
+      toArray(),
+    ).subscribe(x => console.table(x))
 }

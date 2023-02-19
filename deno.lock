@@ -223,5 +223,22 @@
     "https://esm.sh/v106/parse5@7.1.2/deno/parse5.js": "15eac1252796c7ae32a108ae7de28a9ebb4828e609f677f94a043205ca46c769",
     "https://esm.sh/v106/readable-stream@3.6.0/deno/readable-stream.js": "0410aca9c270b93f1ecca7778c5155340d62aeffca23dfc26c24f68b9252481b",
     "https://esm.sh/v106/util-deprecate@1.0.2/deno/util-deprecate.js": "465830ef20bb4e16da7d89898a5359736a8639c450e10db4fb3634bfbd8dd987"
+  },
+  "npm": {
+    "specifiers": {
+      "rxjs@7.6.0": "rxjs@7.6.0"
+    },
+    "packages": {
+      "rxjs@7.6.0": {
+        "integrity": "sha512-DDa7d8TFNUalGC9VqXvQ1euWNN7sc63TrUCuM9J998+ViviahMIjKSOU7rfcgFOF+FCD71BhDRv4hrFz+ImDLQ==",
+        "dependencies": {
+          "tslib": "tslib@2.5.0"
+        }
+      },
+      "tslib@2.5.0": {
+        "integrity": "sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==",
+        "dependencies": {}
+      }
+    }
   }
 }
