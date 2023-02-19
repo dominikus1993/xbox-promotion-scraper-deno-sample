@@ -1,5 +1,5 @@
-import { parsePage } from "./index.ts";
+import { parsePages } from "./index.ts";
 
 Deno.bench(async function parsePageBench() {
-    await parsePage()
+    await parsePages(3)
 });
