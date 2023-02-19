@@ -1,6 +1,6 @@
 import * as cheerio from "https://esm.sh/cheerio@1.0.0-rc.12";
-import { concatMap, filter, from, map, mergeMap, Observable, range, toArray } from "npm:rxjs@7.6.0";
-import { Game, GamePassGame, RegularGame, XboxGame } from "../types/game.ts";
+import { filter, from, mergeMap, Observable } from "npm:rxjs@7.6.0";
+import { Game, RegularGame, XboxGame } from "../types/game.ts";
 
 const url = "https://www.microsoft.com/pl-pl/store/deals/games/xbox";
 
