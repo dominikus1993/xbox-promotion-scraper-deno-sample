@@ -1,5 +1,5 @@
 import * as cheerio from "https://esm.sh/cheerio@1.0.0-rc.12";
-import { concatMap, filter, from, map, mergeMap, range, toArray } from "npm:rxjs@7.6.0";
+import { concatMap, filter, from, map, mergeMap, Observable, range, toArray } from "npm:rxjs@7.6.0";
 import { Game, GamePassGame, RegularGame, XboxGame } from "../types/game.ts";
 
 const url = "https://www.microsoft.com/pl-pl/store/deals/games/xbox";
@@ -59,19 +59,16 @@ async function parsePage(page: number): Promise<XboxGame[]> {
   return result;
 }
 
-export async function parsePages(pages: number) {
+export function parsePages(pages: number) : Observable<XboxGame> {
   const tasks = [];
   for (let index = 0; index < pages; index++) {
     tasks.push(parsePage(index));
   }
 
-  // const games = await Promise.all(tasks);
-  // const res = games.flat().filter((x) => x.kind !== "GamePass");
-  await from(tasks)
+  return from(tasks)
     .pipe(
       mergeMap((x) => x, 5),
       mergeMap(x => x.flat()),
       filter(x => x.kind !== "GamePass"),
-      toArray(),
-    ).subscribe(x => console.table(x))
+    )
 }
