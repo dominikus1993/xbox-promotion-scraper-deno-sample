@@ -1,5 +1,4 @@
-import * as cheerio from "https://esm.sh/cheerio@1.0.0-rc.12";
-import { filter, from, mergeMap, Observable } from "npm:rxjs@7.6.0";
+import { CheerioAPI, Element, filter, from, load, mergeMap, Observable } from "../deps.ts";
 import { Game, RegularGame, XboxGame } from "../types/game.ts";
 
 const url = "https://www.microsoft.com/pl-pl/store/deals/games/xbox";
@@ -10,16 +9,16 @@ const pageUrl = (page: number) => {
 };
 
 function parseTitleAndUrl(
-  $: cheerio.CheerioAPI,
-  element: cheerio.Element,
+  $: CheerioAPI,
+  element: Element,
 ): { url: string; title: string } {
   const data = $(element).find("a").first();
   return { url: data[0].attribs.href, title: data.text() };
 }
 
 function parsePrice(
-  $: cheerio.CheerioAPI,
-  element: cheerio.Element,
+  $: CheerioAPI,
+  element: Element,
 ): { price: number; promotionPrice?: number } | null {
   const data = $(element).find("p[aria-hidden='true']");
   const text = data.text();
@@ -43,7 +42,7 @@ async function parsePage(page: number): Promise<XboxGame[]> {
   const res = await fetch(pageUrl(page));
   const html = await res.text();
 
-  const $ = cheerio.load(html);
+  const $ = load(html);
   const cardPlacement = $("div.card").find("div.card-body");
   const result: XboxGame[] = [];
   for (const element of cardPlacement) {
