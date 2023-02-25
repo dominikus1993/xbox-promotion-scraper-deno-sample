@@ -1,5 +1,9 @@
 {
   "tasks": {
     "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "rxjs": "npm:rxjs@7.8.0",
+    "cheerio": "https://esm.sh/cheerio@1.0.0-rc.12"
   }
 }

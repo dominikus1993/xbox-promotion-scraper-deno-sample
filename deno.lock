@@ -226,11 +226,18 @@
   },
   "npm": {
     "specifiers": {
-      "rxjs@7.6.0": "rxjs@7.6.0"
+      "rxjs@7.6.0": "rxjs@7.6.0",
+      "rxjs@7.8.0": "rxjs@7.8.0"
     },
     "packages": {
       "rxjs@7.6.0": {
         "integrity": "sha512-DDa7d8TFNUalGC9VqXvQ1euWNN7sc63TrUCuM9J998+ViviahMIjKSOU7rfcgFOF+FCD71BhDRv4hrFz+ImDLQ==",
+        "dependencies": {
+          "tslib": "tslib@2.5.0"
+        }
+      },
+      "rxjs@7.8.0": {
+        "integrity": "sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==",
         "dependencies": {
           "tslib": "tslib@2.5.0"
         }
