@@ -1,12 +1,6 @@
 import { CheerioAPI, Element, filter, from, load, mergeMap, Observable } from "../deps.ts";
 import { Game, RegularGame, XboxGame } from "../types/game.ts";
-
-const url = "https://www.microsoft.com/pl-pl/store/deals/games/xbox";
-
-const pageUrl = (page: number) => {
-  const skip = Math.ceil((page - 1) * 90);
-  return `${url}?skipitems=${skip}`;
-};
+import { pageUrl } from "./page.ts";
 
 function parseTitleAndUrl(
   $: CheerioAPI,

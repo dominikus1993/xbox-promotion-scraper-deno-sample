@@ -4,9 +4,9 @@ import { parsePages } from "./src/parser/index.ts";
 
 // Learn more at https://deno.land/manual/examples/module_metadata#concepts
 if (import.meta.main) {
-  await gamePromotionPriceFilter(parsePages(10))
+  gamePromotionPriceFilter(parsePages(10))
     .pipe(
-      toArray()
+      toArray(),
     )
-    .subscribe(games => console.table(games))
+    .subscribe((games) => console.table(games));
 }
